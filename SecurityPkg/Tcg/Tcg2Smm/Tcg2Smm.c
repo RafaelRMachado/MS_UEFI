@@ -10,6 +10,8 @@
   PhysicalPresenceCallback() and MemoryClearCallback() will receive untrusted input and do some check.
 
 Copyright (c) 2015 - 2016, Intel Corporation. All rights reserved.<BR>
+Copyright (c) 2016, Microsoft Corporation
+
 This program and the accompanying materials 
 are licensed and made available under the terms and conditions of the BSD License 
 which accompanies this distribution.  The full text of the license may be found at 
@@ -21,6 +23,8 @@ WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 **/
 
 #include "Tcg2Smm.h"
+
+#include <Library/SmmAuditLib.h>
 
 typedef enum {
   PtpInterfaceTis,
@@ -484,6 +488,7 @@ InitializeTcgSmm (
   Status = gSmst->SmmLocateProtocol (&gEfiSmmSwDispatch2ProtocolGuid, NULL, (VOID**)&SwDispatch);
   ASSERT_EFI_ERROR (Status);
   SwContext.SwSmiInputValue = (UINTN) -1;
+  SMI_REGISTER_NOTIFY( PhysicalPresenceCallback );
   Status = SwDispatch->Register (SwDispatch, PhysicalPresenceCallback, &SwContext, &SwHandle);
   ASSERT_EFI_ERROR (Status);
   if (EFI_ERROR (Status)) {
@@ -492,6 +497,7 @@ InitializeTcgSmm (
   mTcgNvs->PhysicalPresence.SoftwareSmi = (UINT8) SwContext.SwSmiInputValue;
 
   SwContext.SwSmiInputValue = (UINTN) -1;
+  SMI_REGISTER_NOTIFY( MemoryClearCallback );
   Status = SwDispatch->Register (SwDispatch, MemoryClearCallback, &SwContext, &SwHandle);
   ASSERT_EFI_ERROR (Status);
   if (EFI_ERROR (Status)) {

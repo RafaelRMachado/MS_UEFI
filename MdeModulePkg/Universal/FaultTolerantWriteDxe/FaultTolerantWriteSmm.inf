@@ -7,6 +7,7 @@
 #   flash access.
 #
 # Copyright (c) 2010 - 2015, Intel Corporation. All rights reserved.<BR>
+# Copyright (c) 2016, Microsoft Corporation
 #
 #  This program and the accompanying materials
 #  are licensed and made available under the terms and conditions of the BSD License
@@ -55,6 +56,7 @@
   PcdLib
   ReportStatusCodeLib
   SmmMemLib
+  SmmAuditLib
 
 [Guids]
   #

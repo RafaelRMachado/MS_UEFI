@@ -9,6 +9,8 @@
   defined, then debug and assert related macros wrapped by it are the NULL implementations.
 
 Copyright (c) 2006 - 2016, Intel Corporation. All rights reserved.<BR>
+Copyright (c) 2016, Microsoft Corporation
+
 This program and the accompanying materials are licensed and made available under 
 the terms and conditions of the BSD License that accompanies this distribution.  
 The full text of the license may be found at
@@ -44,6 +46,7 @@ WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 #define DEBUG_INFO      0x00000040  // Informational debug messages
 #define DEBUG_DISPATCH  0x00000080  // PEI/DXE/SMM Dispatchers
 #define DEBUG_VARIABLE  0x00000100  // Variable
+#define DEBUG_SMI       0x00000200  // SMM Auditing
 #define DEBUG_BM        0x00000400  // Boot Manager
 #define DEBUG_BLKIO     0x00001000  // BlkIo Driver
 #define DEBUG_NET       0x00004000  // Network Io Driver
@@ -68,6 +71,7 @@ WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 #define EFI_D_INFO      DEBUG_INFO
 #define EFI_D_DISPATCH  DEBUG_DISPATCH
 #define EFI_D_VARIABLE  DEBUG_VARIABLE
+#define EFI_D_SMI       DEBUG_SMI
 #define EFI_D_BM        DEBUG_BM
 #define EFI_D_BLKIO     DEBUG_BLKIO
 #define EFI_D_NET       DEBUG_NET

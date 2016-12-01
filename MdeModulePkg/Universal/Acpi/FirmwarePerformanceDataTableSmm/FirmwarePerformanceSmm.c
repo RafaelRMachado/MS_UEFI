@@ -12,6 +12,8 @@
   FpdtSmiHandler() will receive untrusted input and do basic validation.
 
   Copyright (c) 2011 - 2016, Intel Corporation. All rights reserved.<BR>
+  Copyright (c) 2016, Microsoft Corporation
+
   This program and the accompanying materials
   are licensed and made available under the terms and conditions of the BSD License
   which accompanies this distribution.  The full text of the license may be found at
@@ -39,6 +41,7 @@
 #include <Library/UefiBootServicesTableLib.h>
 #include <Library/SynchronizationLib.h>
 #include <Library/SmmMemLib.h>
+#include <Library/SmmAuditLib.h>
 
 #define EXTENSION_RECORD_SIZE     0x1000
 
@@ -329,6 +332,7 @@ FirmwarePerformanceSmmEntryPoint (
   // Register SMI handler.
   //
   Handle = NULL;
+  SMI_REGISTER_NOTIFY( FpdtSmiHandler );
   Status = gSmst->SmiHandlerRegister (FpdtSmiHandler, &gEfiFirmwarePerformanceGuid, &Handle);
   ASSERT_EFI_ERROR (Status);
 

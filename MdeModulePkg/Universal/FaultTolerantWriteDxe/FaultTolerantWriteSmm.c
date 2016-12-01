@@ -44,6 +44,8 @@
   This driver need to make sure the CommBuffer is not in the SMRAM range. 
 
 Copyright (c) 2010 - 2015, Intel Corporation. All rights reserved.<BR>
+Copyright (c) 2016, Microsoft Corporation
+
 This program and the accompanying materials                          
 are licensed and made available under the terms and conditions of the BSD License         
 which accompanies this distribution.  The full text of the license may be found at        
@@ -57,6 +59,7 @@ WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
 #include <PiSmm.h>
 #include <Library/SmmServicesTableLib.h>
 #include <Library/SmmMemLib.h>
+#include <Library/SmmAuditLib.h>
 #include <Protocol/SmmSwapAddressRange.h>
 #include "FaultTolerantWrite.h"
 #include "FaultTolerantWriteSmmCommon.h"
@@ -555,6 +558,7 @@ FvbNotificationEvent (
   ///
   /// Register SMM FTW SMI handler
   ///
+  SMI_REGISTER_NOTIFY( SmmFaultTolerantWriteHandler );
   Status = gSmst->SmiHandlerRegister (SmmFaultTolerantWriteHandler, &gEfiSmmFaultTolerantWriteProtocolGuid, &SmmFtwHandle);
   ASSERT_EFI_ERROR (Status);
 

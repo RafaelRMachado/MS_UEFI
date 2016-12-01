@@ -2,6 +2,8 @@
   SMM Core Main Entry Point
 
   Copyright (c) 2009 - 2016, Intel Corporation. All rights reserved.<BR>
+  Copyright (c) 2016, Microsoft Corporation
+
   This program and the accompanying materials are licensed and made available 
   under the terms and conditions of the BSD License which accompanies this 
   distribution.  The full text of the license may be found at        
@@ -13,6 +15,8 @@
 **/
 
 #include "PiSmmCore.h"
+
+#include <Library/SmmAuditLib.h>
 
 //
 // Physical pointer to private structure shared between SMM IPL and the SMM Core
@@ -623,6 +627,7 @@ SmmMain (
   // Register all SMI Handlers required by the SMM Core
   //
   for (Index = 0; mSmmCoreSmiHandlers[Index].HandlerType != NULL; Index++) {
+    SMI_REGISTER_NOTIFY_W_CONTEXT( mSmmCoreSmiHandlers[Index].Handler, Index );
     Status = SmiHandlerRegister (
                mSmmCoreSmiHandlers[Index].Handler,
                mSmmCoreSmiHandlers[Index].HandlerType,

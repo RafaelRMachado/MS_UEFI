@@ -2,6 +2,8 @@
   SMI management.
 
   Copyright (c) 2009 - 2013, Intel Corporation. All rights reserved.<BR>
+  Copyright (c) 2016, Microsoft Corporation
+
   This program and the accompanying materials are licensed and made available 
   under the terms and conditions of the BSD License which accompanies this 
   distribution.  The full text of the license may be found at        
@@ -13,6 +15,8 @@
 **/
 
 #include "PiSmmCore.h"
+
+#include <Library/SmmAuditLib.h>
 
 //
 // SMM_HANDLER - used for each SMM handler
@@ -240,6 +244,8 @@ SmiHandlerRegister (
   SMI_HANDLER  *SmiHandler;
   SMI_ENTRY    *SmiEntry;
   LIST_ENTRY   *List;
+
+  SMI_REGISTRATION_DETECT( Handler );
 
   if (Handler == NULL || DispatchHandle == NULL) {
     return EFI_INVALID_PARAMETER;
